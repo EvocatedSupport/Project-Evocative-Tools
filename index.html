@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evocative Fixer</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
 
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #00bcd4;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0097a7;
+    }
+
+    #textContainer {
+      margin-top: 20px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #copyText {
+      background: #222;
+      padding: 10px;
+      border-radius: 5px;
+      word-break: break-word;
+    }
+
+    .word {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.1;
+      color: #fff;
+      animation: float 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0.1;
+      }
+      100% {
+        transform: translateY(-200px) rotate(360deg);
+        opacity: 0.1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Click to Reveal Your Tool</h1>
+  <button id="revealBtn">Reveal Text</button>
+
+  <div id="textContainer">
+    <div id="copyText">YOUR TEXT HERE</div>
+    <button onclick="copyToClipboard()">Copy to Clipboard</button>
+  </div>
+
+  <script>
+    const words = ['evocative', 'Fixer', 'creative', 'imagine', 'build', 'code', 'ideas', 'dreams', 'hack'];
+    const body = document.body;
+
+    for (let i = 0; i < 40; i++) {
+      const wordEl = document.createElement('div');
+      wordEl.className = 'word';
+      wordEl.textContent = words[Math.floor(Math.random() * words.length)];
+      wordEl.style.left = Math.random() * 100 + 'vw';
+      wordEl.style.top = Math.random() * 100 + 'vh';
+      wordEl.style.animationDuration = 10 + Math.random() * 20 + 's';
+      wordEl.style.fontSize = (1 + Math.random() * 2) + 'rem';
+      body.appendChild(wordEl);
+    }
+
+    document.getElementById('revealBtn').addEventListener('click', () => {
+      document.getElementById('textContainer').style.display = 'flex';
+    });
+
+    function copyToClipboard() {
+      const text = document.getElementById('copyText').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard!");
+      }).catch(err => {
+        alert("Clipboard copy failed. Check browser permissions.");
+      });
+    }
+  </script>
+</body>
+</html>
