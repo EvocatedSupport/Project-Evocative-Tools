@@ -145,6 +145,12 @@
     </div>
   </div>
 
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay loop muted>
+    <source src="https://cdn.pixabay.com/audio/2023/03/30/audio_fad888e72d.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
   <script>
     const loader = document.getElementById('loader');
     const content = document.getElementById('content');
@@ -175,6 +181,15 @@
       document.body.appendChild(trail);
       setTimeout(() => trail.remove(), 1000);
     });
+
+    // Music autoplay after user interaction
+    document.addEventListener('click', () => {
+      const music = document.getElementById('bg-music');
+      if (music && music.muted) {
+        music.muted = false;
+        music.play();
+      }
+    }, { once: true });
   </script>
 </body>
 </html>
