@@ -36,33 +36,33 @@
     }
     .button {
       background-color: transparent;
-      border: 2px solid cyan;
+      border: 2px solid hotpink;
       padding: 10px 20px;
       margin: 30px 10px;
-      color: cyan;
+      color: hotpink;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
       transition: 0.3s;
     }
     .button:hover {
-      background-color: cyan;
+      background-color: hotpink;
       color: black;
     }
     .command-box {
       margin: 10px auto;
       padding: 10px;
       background-color: #111;
-      border: 1px solid cyan;
+      border: 1px solid hotpink;
       width: 80%;
       border-radius: 8px;
       display: none;
-      color: cyan;
+      color: hotpink;
       white-space: pre-wrap;
     }
     .copy-button {
       margin-top: 10px;
-      background-color: cyan;
+      background-color: hotpink;
       color: black;
       border: none;
       padding: 5px 10px;
@@ -71,27 +71,31 @@
       font-weight: bold;
     }
     .loader {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       border: 8px solid #444;
-      border-top: 8px solid cyan;
+      border-top: 8px solid hotpink;
       border-radius: 50%;
       width: 60px;
       height: 60px;
       animation: spin 1s linear infinite;
+      z-index: 1000;
     }
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+    #content {
+      display: none;
     }
     .cursor-trail {
       position: absolute;
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: cyan;
+      background: hotpink;
       pointer-events: none;
       animation: trailFade 1s forwards;
     }
@@ -101,9 +105,16 @@
   </style>
 </head>
 <body>
+  <!-- Background Music -->
+  <audio id="bg-music" loop>
+    <source src="https://clarkezbms.github.io/nights.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Loading Screen -->
   <div class="loader" id="loader"></div>
 
-  <div id="content" style="display: none;">
+  <!-- Main Content -->
+  <div id="content">
     <div class="title">Evocated Support</div>
     <p style="margin-top: 20px;">You need to run PowerShell as Administrator. Once open, click the button below to get the command you need to run.</p>
 
@@ -145,34 +156,29 @@
     </div>
   </div>
 
-  <!-- Background Music -->
-  <audio id="bg-music" autoplay loop muted>
-    <source src="https://cdn.pixabay.com/audio/2023/03/30/audio_fad888e72d.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
-
   <script>
-    const loader = document.getElementById('loader');
-    const content = document.getElementById('content');
-
+    // Show content after loader
     window.addEventListener('load', () => {
       setTimeout(() => {
-        loader.style.display = 'none';
-        content.style.display = 'block';
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
       }, 1500);
     });
 
+    // Toggle box
     function toggleBox(id) {
       const box = document.getElementById(id);
       box.style.display = box.style.display === 'block' ? 'none' : 'block';
     }
 
+    // Copy to clipboard
     function copyToClipboard(id) {
       const text = document.getElementById(id).innerText.trim();
       navigator.clipboard.writeText(text.replace('Copy to Clipboard', '').trim());
       alert("Copied!");
     }
 
+    // Cursor trail
     document.addEventListener('mousemove', e => {
       const trail = document.createElement('div');
       trail.className = 'cursor-trail';
@@ -182,12 +188,12 @@
       setTimeout(() => trail.remove(), 1000);
     });
 
-    // Music autoplay after user interaction
+    // Play music on first click
     document.addEventListener('click', () => {
-      const music = document.getElementById('bg-music');
-      if (music && music.muted) {
-        music.muted = false;
-        music.play();
+      const audio = document.getElementById('bg-music');
+      if (audio.paused) {
+        audio.muted = false;
+        audio.play();
       }
     }, { once: true });
   </script>
