@@ -90,7 +90,6 @@
       word-wrap: break-word;
     }
 
-    /* Loading screen styles */
     #loading-screen {
       display: flex;
       flex-direction: column;
@@ -111,13 +110,11 @@
   </style>
 </head>
 <body>
-  <!-- 🔃 Loading Screen -->
   <div id="loading-screen">
     <div class="loading-title">Evocated Support</div>
     <button class="get-started-btn" onclick="startSite()">Get Started</button>
   </div>
 
-  <!-- 🎧 Audio -->
   <audio id="bg-music" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
@@ -125,7 +122,6 @@
     <source src="click.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- 💻 Main Content -->
   <div class="centered" id="main-content">
     <div class="main-title">Evocated Support</div>
     <div class="label">PowerShell MUST be run as ADMINISTRATOR or it will not work</div>
@@ -133,7 +129,7 @@
     <div class="label">🔥 Most Popular Fix 🔥</div>
     <button onclick="playClick(); toggleCopyBox('popular-command', this)" class="fix-button active">Fix Visual Studio Errors</button>
     <div class="copy-box" id="popular-command">
-      <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+      <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</code>
       <button class="copy-btn" onclick="playClick(); copyFrom('popular-command')">Copy to Clipboard</button>
     </div>
 
@@ -142,13 +138,32 @@
     <div class="dropdown" id="dropdown">
       <button class="fix-button" onclick="playClick(); toggleCopyBox('tool1', this)">Fix High CPU Usage</button>
       <div class="copy-box" id="tool1">
-        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <code>Get-Process | Sort CPU -Descending | Select -First 10</code>
         <button class="copy-btn" onclick="playClick(); copyFrom('tool1')">Copy to Clipboard</button>
       </div>
+
       <button class="fix-button" onclick="playClick(); toggleCopyBox('tool2', this)">Fix Slow PC</button>
       <div class="copy-box" id="tool2">
-        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <code>Clear-DnsClientCache</code>
         <button class="copy-btn" onclick="playClick(); copyFrom('tool2')">Copy to Clipboard</button>
+      </div>
+
+      <button class="fix-button" onclick="playClick(); toggleCopyBox('tool3', this)">Clean Temp Files</button>
+      <div class="copy-box" id="tool3">
+        <code>Remove-Item -Path $env:TEMP\* -Recurse -Force</code>
+        <button class="copy-btn" onclick="playClick(); copyFrom('tool3')">Copy to Clipboard</button>
+      </div>
+
+      <button class="fix-button" onclick="playClick(); toggleCopyBox('tool4', this)">Reset Network</button>
+      <div class="copy-box" id="tool4">
+        <code>netsh winsock reset</code>
+        <button class="copy-btn" onclick="playClick(); copyFrom('tool4')">Copy to Clipboard</button>
+      </div>
+
+      <button class="fix-button" onclick="playClick(); toggleCopyBox('tool5', this)">Flush Memory</button>
+      <div class="copy-box" id="tool5">
+        <code>Clear-Host; [System.GC]::Collect()</code>
+        <button class="copy-btn" onclick="playClick(); copyFrom('tool5')">Copy to Clipboard</button>
       </div>
     </div>
 
@@ -161,7 +176,6 @@
     </div>
   </div>
 
-  <!-- 🔧 Script -->
   <script>
     function startSite() {
       document.getElementById('loading-screen').style.display = 'none';
@@ -171,11 +185,13 @@
     }
 
     function toggleCopyBox(id, btn) {
+      const target = document.getElementById(id);
+      const isVisible = target.style.display === 'block';
+
       document.querySelectorAll('.copy-box').forEach(box => box.style.display = 'none');
       document.querySelectorAll('.fix-button').forEach(button => button.classList.remove('active'));
 
-      const target = document.getElementById(id);
-      if (target) {
+      if (!isVisible) {
         target.style.display = 'block';
         btn.classList.add('active');
       }
