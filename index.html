@@ -65,18 +65,23 @@
   background: radial-gradient(circle, #ff66c4 0%, #2a002f 100%);
   color: #ffffff;
   margin: 15% auto;
-  padding: 25px 40px;
-  border-radius: 20px;
+  padding: 30px 50px;
+  border-radius: 24px;
   border: 2px solid #ffb3ec;
-  box-shadow: 0 0 30px #ff66c4, 0 0 60px #ff66c4;
+  box-shadow:
+    0 0 40px #ff66c4,
+    0 0 80px #ff66c4,
+    0 0 120px #ff66c4,
+    0 0 160px #ffb3ec;
   width: fit-content;
   max-width: 90%;
   text-align: center;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 700;
   animation: scaleIn 0.3s ease-in-out, glowPulse 1.5s infinite alternate;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
+
 
 .modal-content button {
   background-color: #ffb6e6;
@@ -344,5 +349,6 @@
       setTimeout(() => trail.remove(), 600);
     });
   </script>
+<audio id="bg-music" src="nights.mp3" autoplay loop></audio>
 </body>
 </html>
