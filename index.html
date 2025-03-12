@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Evocated Support</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #1a001f, #2b002f);
+      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
       color: #ffd6f9;
       overflow-x: hidden;
+      position: relative;
+      cursor: none;
     }
 
     .centered {
@@ -24,7 +26,7 @@
     }
 
     .main-title {
-      font-size: 3rem;
+      font-size: 3.5rem;
       font-weight: bold;
       text-shadow: 0 0 15px #ff94f4;
       animation: bounce 3.5s infinite;
@@ -41,8 +43,8 @@
     }
 
     .label {
-      margin-top: 20px;
-      font-size: 1.1rem;
+      margin-top: 15px;
+      font-size: 1rem;
       text-shadow: 0 0 8px #ffb3ec;
     }
 
@@ -107,91 +109,144 @@
       text-shadow: 0 0 10px #ff94f4;
       animation: bounce 3s infinite;
     }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #2a002a;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 20px #ff94f4;
+    }
+
+    .modal-content p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .modal-content button {
+      padding: 10px 20px;
+      background-color: #ffb3ec;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #30001e;
+    }
+
+    /* Cursor Trail */
+    .trail {
+      position: absolute;
+      height: 8px;
+      width: 8px;
+      background: #ff94f4;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.6;
+      animation: fadeTrail 0.6s linear forwards;
+    }
+
+    @keyframes fadeTrail {
+      to {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- 🔃 Loading Screen -->
   <div id="loading-screen">
     <div class="loading-title">Evocated Support</div>
-    <button class="get-started-btn" onclick="startSite()">Get Started</button>
+    <button class="get-started-btn" onclick="showModal()">Get Started</button>
   </div>
 
-  <audio id="bg-music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="click-sound">
-    <source src="click.mp3" type="audio/mpeg">
-  </audio>
+  <!-- ⚠️ Modal -->
+  <div class="modal" id="adminModal">
+    <div class="modal-content">
+      <p>PowerShell MUST be run as ADMINISTRATOR or it will not work</p>
+      <button onclick="startSite()">OK</button>
+    </div>
+  </div>
 
+  <!-- 💻 Main Content -->
   <div class="centered" id="main-content">
     <div class="main-title">Evocated Support</div>
     <div class="label">PowerShell MUST be run as ADMINISTRATOR or it will not work</div>
 
     <div class="label">🔥 Most Popular Fix 🔥</div>
-    <button onclick="playClick(); toggleCopyBox('popular-command', this)" class="fix-button active">Fix Visual Studio Errors</button>
+    <button onclick="toggleCopyBox('popular-command', this)" class="fix-button active">Fix Visual Studio Errors</button>
     <div class="copy-box" id="popular-command">
-      <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12</code>
-      <button class="copy-btn" onclick="playClick(); copyFrom('popular-command')">Copy to Clipboard</button>
+      <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+      <button class="copy-btn" onclick="copyFrom('popular-command')">Copy to Clipboard</button>
     </div>
 
     <div class="label">🛠️ Other Fix Tools</div>
-    <button onclick="playClick(); toggleDropdown()" class="fix-button">Show Other Tools</button>
-    <div class="dropdown" id="dropdown">
-      <button class="fix-button" onclick="playClick(); toggleCopyBox('tool1', this)">Fix High CPU Usage</button>
+    <button onclick="toggleDropdown()" class="fix-button">Show Other Tools</button>
+    <div class="dropdown" id="dropdown" style="flex-direction: column;">
+      <button class="fix-button" onclick="toggleCopyBox('tool1', this)">Fix High CPU Usage</button>
       <div class="copy-box" id="tool1">
-        <code>Get-Process | Sort CPU -Descending | Select -First 10</code>
-        <button class="copy-btn" onclick="playClick(); copyFrom('tool1')">Copy to Clipboard</button>
+        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <button class="copy-btn" onclick="copyFrom('tool1')">Copy to Clipboard</button>
       </div>
 
-      <button class="fix-button" onclick="playClick(); toggleCopyBox('tool2', this)">Fix Slow PC</button>
+      <button class="fix-button" onclick="toggleCopyBox('tool2', this)">Fix Slow PC</button>
       <div class="copy-box" id="tool2">
-        <code>Clear-DnsClientCache</code>
-        <button class="copy-btn" onclick="playClick(); copyFrom('tool2')">Copy to Clipboard</button>
+        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <button class="copy-btn" onclick="copyFrom('tool2')">Copy to Clipboard</button>
       </div>
 
-      <button class="fix-button" onclick="playClick(); toggleCopyBox('tool3', this)">Clean Temp Files</button>
+      <button class="fix-button" onclick="toggleCopyBox('tool3', this)">Fix Windows Updates</button>
       <div class="copy-box" id="tool3">
-        <code>Remove-Item -Path $env:TEMP\* -Recurse -Force</code>
-        <button class="copy-btn" onclick="playClick(); copyFrom('tool3')">Copy to Clipboard</button>
+        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <button class="copy-btn" onclick="copyFrom('tool3')">Copy to Clipboard</button>
       </div>
 
-      <button class="fix-button" onclick="playClick(); toggleCopyBox('tool4', this)">Reset Network</button>
+      <button class="fix-button" onclick="toggleCopyBox('tool4', this)">Fix App Crashes</button>
       <div class="copy-box" id="tool4">
-        <code>netsh winsock reset</code>
-        <button class="copy-btn" onclick="playClick(); copyFrom('tool4')">Copy to Clipboard</button>
-      </div>
-
-      <button class="fix-button" onclick="playClick(); toggleCopyBox('tool5', this)">Flush Memory</button>
-      <div class="copy-box" id="tool5">
-        <code>Clear-Host; [System.GC]::Collect()</code>
-        <button class="copy-btn" onclick="playClick(); copyFrom('tool5')">Copy to Clipboard</button>
+        <code>[Net.ServicePointManager]::SecurityProtocol = ...</code>
+        <button class="copy-btn" onclick="copyFrom('tool4')">Copy to Clipboard</button>
       </div>
     </div>
 
     <div class="label">📦 If fixers are not working, download this</div>
-    <button class="fix-button" onclick="playClick(); toggleDownloadBox()">Show Download</button>
+    <button class="fix-button" onclick="toggleDownloadBox()">Show Download</button>
     <div class="download-box" id="downloadBox">
       <a href="YOUR_DIRECT_DOWNLOAD_LINK_HERE.zip" download>
-        <button class="download-btn" onclick="playClick()">⬇ Download Fixer</button>
+        <button class="download-btn">⬇ Download Fixer</button>
       </a>
     </div>
   </div>
 
+  <!-- 🔧 Scripts -->
   <script>
     function startSite() {
+      document.getElementById('adminModal').style.display = 'none';
       document.getElementById('loading-screen').style.display = 'none';
       document.getElementById('main-content').style.display = 'flex';
-      document.getElementById('bg-music').play();
-      playClick();
+    }
+
+    function showModal() {
+      document.getElementById('adminModal').style.display = 'flex';
     }
 
     function toggleCopyBox(id, btn) {
-      const target = document.getElementById(id);
-      const isVisible = target.style.display === 'block';
-
       document.querySelectorAll('.copy-box').forEach(box => box.style.display = 'none');
       document.querySelectorAll('.fix-button').forEach(button => button.classList.remove('active'));
-
-      if (!isVisible) {
+      const target = document.getElementById(id);
+      if (target) {
         target.style.display = 'block';
         btn.classList.add('active');
       }
@@ -209,15 +264,26 @@
 
     function copyFrom(id) {
       const text = document.querySelector(`#${id} code`).innerText;
-      navigator.clipboard.writeText(text);
-      alert("Copied to clipboard!");
+      navigator.clipboard.writeText(text).then(() => {
+        const copied = document.createElement('span');
+        copied.innerText = "✔ Copied!";
+        copied.style.marginLeft = "10px";
+        copied.style.color = "#90ee90";
+        copied.style.fontWeight = "bold";
+        document.querySelector(`#${id} .copy-btn`).after(copied);
+        setTimeout(() => copied.remove(), 1500);
+      });
     }
 
-    function playClick() {
-      const click = document.getElementById('click-sound');
-      click.currentTime = 0;
-      click.play();
-    }
+    // Cursor Trail Effect
+    document.addEventListener('mousemove', e => {
+      const trail = document.createElement('div');
+      trail.className = 'trail';
+      trail.style.left = `${e.pageX}px`;
+      trail.style.top = `${e.pageY}px`;
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 600);
+    });
   </script>
 </body>
 </html>
